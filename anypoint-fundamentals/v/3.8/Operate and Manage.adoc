@@ -125,23 +125,19 @@ To better understand how options differ between applications deployed to CloudHu
 
 image:api-logo.png[AnypointAPI_manager]
 
-link:/anypoint-platform-for-apis[Anypoint Platform for APIs]* is an API and service registry and governance platform. Built from the ground up to support cloud and hybrid use cases, the platform governs all of your service and API assets, whether they’re internal or external, behind the firewall or on the cloud, on a single platform. By placing a proxy in front of your application, you can apply traffic policies, view usage metrics and more.
+link:/anypoint-platform-for-apis[Anypoint Platform for APIs] is an API and service registry and governance platform. Built from the ground up to support cloud and hybrid use cases, the platform governs all of your service and API assets, whether they’re internal or external, behind the firewall or on the cloud, on a single platform. By placing a proxy in front of your application, you can apply traffic policies, view usage metrics and more.
 
-You can either register a Mule application (wherever it is that you deploy it to) by imbuing  link:/anypoint-platform-for-apis/api-auto-discovery[autodiscovery parameters] onto it, or you can take an existing legacy API (that could well be created with different technology) and automatically create a Mule proxy to govern and monitor it. In either case, this registers an API onto the API manager
+You can either register a Mule application (wherever it is that you deploy it to) by imbuing it with link:/anypoint-platform-for-apis/api-auto-discovery[autodiscovery parameters], or you can take an existing legacy API (that could well be created with different technology) and automatically create a Mule link:/anypoint-platform-for-apis/proxying-your-api[proxy] to govern and monitor it. In either case, this registers an API onto the API manager, which enables you to do the following things:
 
-Once an API is registered, you can easily apply governance policies to it via the web UI, such as throttling or API whitelisting. You can apply these by simply clicking an *Activate* button, and optionally providing some values for its parameters. You can also generate your own custom policies if you require something that isn't covered by the lengthy list of pre built policies.
+* Easily link:/anypoint-platform-for-apis/applying-custom-policies[*apply governance policies*] to it via the web UI, such as throttling or API whitelisting. You can apply these by simply clicking an *Activate* button, and optionally providing some values for its parameters. You can also generate your own custom policies if you require something that isn't covered by the lengthy list of pre built policies.
 
-With your API registered, the Anypoint Platform will start link:/anypoint-platform-for-apis/analytics[tracking analytics] about API usage and performance.
+* link:/anypoint-platform-for-apis/analytics[*track analytics*] about API usage and performance.
 
-At that point you're also enabled to create an API portal, where users of your API can browse interactive API documentation that's automatically generated from your API's RAML definition file. Users can also read any other content that you want to expose there.
+* create an link:/anypoint-platform-for-apis/engaging-users-of-your-api[*API portal*], where users of your API can browse interactive API documentation that's automatically generated from your API's RAML definition file. Users can also read any other content that you want to expose there.
 
-The platform supports keeping multiple versions of a same API in parallel, each with its independent set of policies, analytics and portal.
+[TIP]
+The platform supports registering multiple versions of a same API in parallel, each with its independent set of policies, analytics and portal.
 
-==== Managing a non-Mule Application
-
-As an alternative scenario, you may want to use the Anypoint Platform to manage an API that isn't developed using the MuleSoft software. In that case, you can use the <<API Manager>> to deploy an auto generated proxy. Through this proxy, the anypoint platform can apply policies and obtain analytics information.
-
-// this sub section might be redundant, as it's sort of explained already
 
 === Access Management
 
@@ -156,9 +152,10 @@ Create custom roles for the Runtime Manager and grant them your custom permissio
 
 image:mmc.png[mmc]
 
-MMC provides robust runtime management capabilities for on-premises deployments.
+MMC provides robust runtime management capabilities for on-premises deployments, including monitoring features, email alerts, logs, etc.
 
-You can monitor stuff, get email alerts and all that
+[NOTE]
+MMC is in the process of being fully replaced by the Runtime Manager, and will eventually be deprecated. A migration tool exists for migrating your MMC deployments to Runtime Manager.
 
 
 == See Also
