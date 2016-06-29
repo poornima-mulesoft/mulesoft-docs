@@ -89,38 +89,57 @@ A list of available commands is below:
 [width="100a",cols="35a,65a",options="header"]
 |===
 |Command |Description
-|<<account describe-me>> |  Show account details
-|<<account describe-business-groups>> |Lists business groups
-|<<account describe-business-group >> |Show details of a business group
-|<<account use-business-group >> | Make specified business-group active
-|<<account describe-environments>> |Lists environments
-|<<account use-environment>> | Make specified environment active
-|<<account create-environments>> |Create new environment
-|<<account delete-environment >> | Delete an environment
-|<<runtime-mgr describe-applications>> |  Lists all applications in the environment
-|<<runtime-mgr describe-application>> |  Show application details
-|<<runtime-mgr describe-application-json >> |  Show raw application JSONresponse
-|<<runtime-mgr stop-application >> |  Stop a running application
-|<<runtime-mgr start-application>> | Start an application
-|<<runtime-mgr restart-application >> |  Restart a running application
-|<<runtime-mgr delete-application>> |Delete an application
-|<<runtime-mgr deploy-application >> | Deploy a new application
-|<<runtime-mgr modify-application >> | Update an existing application, optionally updating the zip file
-|<<runtime-mgr revert-application-runtime>> |Reverts application to its previous runtime environment
-|<<runtime-mgr tail-application-logs>> |  Tail application logs
-|<<runtime-mgr download-application-logs>> |  Download application logs to specified directory
-|<<cloudhub describe-lbs>> |Lists all load balancers
-|<<cloudhub describe-lb-rules>> |Lists the proxy rules for a load balancer
-|<<cloudhub add-lb-rule>> | Adds a rule at the specified index.
-|<<cloudhub delete-lb-rule>> |Delete a rule at the specified index.
-|<<cloudhub create-lb>> |  Creates a load balancer
-|<<cloudhub modify-lb>> |Updates a load balancer
-|<<cloudhub delete-lb>> | Delete a load balancer
-|<<cloudhub describe-regions>> |  Lists all supported regions
-|<<cloudhub describe-runtimes>> | Lists all supported runtimes
-|<<cloudhub describe-vpcs>> |  Lists all VPCs
-|<<token>> | Show API access token
-|<<exit>> |  Exits anypoint-cli
+|<<account describe-me>>| Show account details
+|<<account describe-business-groups>>| Lists business groups
+|<<account describe-business-group>>| Show details of a business group
+|<<account switch-business-group>>| Make specified business-group active
+|<<account describe-environments>>| Lists environments
+|<<account use-environment>>| Make specified environment active
+|<<account create-environments>>| Create new environment
+|<<account delete-environment>>| Delete an environment
+|<<runtime-mgr describe-applications>>| Lists all applications in the environment
+|<<runtime-mgr describe-application>>| Show application details
+|<<runtime-mgr describe-application-json>>| Show raw application JSON response
+|<<runtime-mgr stop-application>>| Stop a running application
+|<<runtime-mgr start-application>>| Start an application
+|<<runtime-mgr restart-application>>| Restart a running application
+|<<runtime-mgr delete-application>>| Delete an application
+|<<runtime-mgr deploy-application>>| Deploy a new application
+|<<runtime-mgr modify-application>>| Modify an existing application, optionally updating the zip file
+|<<runtime-mgr revert-application-runtime>>| Reverts application to its previous runtime
+|<<runtime-mgr download-application-logs>>| Download application logs to specified directory
+|<<runtime-mgr tail-application-logs>>| Tail application logs
+|<<cloudhub load-balancer describe-all>>| Lists all Load balancers in an organization
+|<<cloudhub load-balancer describe>>| Show LB details
+|<<cloudhub load-balancer describe-json>>| Show raw LB JSON response
+|<<cloudhub load-balancer create>>| Create a Load balancer
+|<<cloudhub load-balancer start>>| Starts a Load balancer
+|<<cloudhub load-balancer stop>>| Stops a Load balancer
+|<<cloudhub load-balancer delete>>| Delete a Load balancer
+|<<cloudhub load-balancer ssl-endpoint add>>| Add an additional certificate to an existing Load balancer
+|<<cloudhub load-balancer ssl-endpoint remove>>| Remove a certificate from a Load balancer
+|<<cloudhub load-balancer ssl-endpoint set-default>>| Set the default certificate that the Load balancer will serve
+|<<cloudhub load-balancer ssl-endpoint describe>>| Show the Load balancer configuration for a particular certificate
+|<<cloudhub load-balancer whitelist add>>| Add an IP or range of IPs to the Load balancer whitelist
+|<<cloudhub load-balancer whitelist remove>>| Remove an IP or range of IPs from the Load balancer whitelist
+|<<cloudhub load-balancer mappings describe  [certificateName]>>| Lists the proxy mapping rules for a Load balancer. If no certificateName is given, the mappings for the default SSL endpoint are shown
+|<<cloudhub load-balancer mappings add>>| Add a proxy mapping rule at the specified indexIf no certificateName is given, the mappings for the default SSL endpoint are shown
+|<<cloudhub load-balancer mappings remove>>| Remove a proxy mapping ruleIf no certificateName is given, the mappings for the default SSL endpoint are shown
+|<<cloudhub describe-regions>>| Lists all supported regions
+|<<cloudhub describe-runtimes>>| Lists all available runtimes
+|<<cloudhub vpc describe-all>>| Lists all VPCs
+|<<cloudhub vpc describe>>| Show VPC details
+|<<cloudhub vpc describe-json>>| Show raw VPC JSON response
+|<<cloudhub vpc create>>| Create a new VPC
+|<<cloudhub vpc delete>>| Delete an existing VPC
+|<<cloudhub vpc environments add>>| Modifies the VPC association to Runtime Manager environments.
+|<<cloudhub vpc environments remove>>| Modifies the VPC association to Runtime Manager environments.
+|<<cloudhub vpc business-groups add>>| Share a VPC with a list of Business Groups.
+|<<cloudhub vpc business-groups remove>>| Share a VPC with a list of Business Groups.
+|<<cloudhub vpc dns-servers set>>| Sets the domain names that are resolved using your internal DNS servers. If used with no option, internal DNS will be disabled
+|<<cloudhub vpc firewall-rules describe>>| Show firewall rule for Mule applications in this VPC
+|<<cloudhub vpc firewall-rules add>>| Add a firewall rule for Mule applications in this VPC
+|<<cloudhub vpc firewall-rules remove>>| Remove a firewall rule for Mule applications in this VPC
 |===
 
 An Anypoint-CLI call should then have the following form:
@@ -173,13 +192,13 @@ account describe-business-group "QA Organization"
 ----
 --
 
-It will return data such as the owner, the type, subscription information, the entitlements of the group and in which environment is running.
+It returns data such as the owner, the type, subscription information, the entitlements of the group and in which environment is running.
 This command does not take any options, except for the default `--help`.
 
-=== account use-business-group
+=== account switch-business-group
 [source,bash]
 ----
-$ account use-business-group  [options] <name>
+$ account switch-business-group  [options] <name>
 ----
 This command makes the business group you specified in <name> active.
 
@@ -188,7 +207,7 @@ This command makes the business group you specified in <name> active.
 If your business group or organization name contains spaces, you need to enclose its name between `"` characters.
 
 ----
-account use-business-group "QA Organization"
+account switch-business-group "QA Organization"
 ----
 --
 
@@ -363,6 +382,15 @@ This command reverts the application defined in <name> to its previous runtime e
 You can start typing your application's name and hit `tab` for Anypoint-CLI to autocomplete it, or you can double tap `tab` for a full list of all the values you can pass. +
 This command does not take any options, except for the default `--help`.
 
+=== runtime-mgr download-application-logs
+[source,bash]
+----
+$ runtime-mgr download-application-logs [options] <name> <directory>
+----
+This command downloads logs the for application specified in <name> to the specified directory. +
+You can start typing your application's name and hit `tab` for Anypoint-CLI to autocomplete it, or you can double tap `tab` for a full list of all the values you can pass. +
+Keep in mind that contrarily to what you see in the UI, the logs you download from the CLI won't separate system logs from worker logs.
+
 === runtime-mgr tail-application-logs
 [source,bash]
 ----
@@ -373,14 +401,6 @@ This command tails application logs. +
 You can start typing your application's name and hit `tab` for Anypoint-CLI to autocomplete it, or you can double tap `tab` for a full list of all the values you can pass. +
 This command does not take any options, except for the default `--help`.
 
-=== runtime-mgr download-application-logs
-[source,bash]
-----
-$ runtime-mgr download-application-logs [options] <name> <directory>
-----
-This command downloads logs the for application specified in <name> to the specified directory. +
-You can start typing your application's name and hit `tab` for Anypoint-CLI to autocomplete it, or you can double tap `tab` for a full list of all the values you can pass. +
-Keep in mind that contrarily to what you see in the UI, the logs you download from the CLI won't separate system logs from worker logs.
 
 === cloudhub describe-lbs
 [source,bash]
@@ -478,6 +498,7 @@ $ cloudhub delete-lb [options] <name>
 ----
 This command deletes the load balancer specified in <name>.
 
+// START do not remove
 === cloudhub describe-regions
 [source,bash]
 ----
@@ -493,6 +514,7 @@ $ cloudhub describe-runtimes [options]
 ----
 This command lists all supported runtimes. +
 This command does not take any options, except for the default `--help`.
+// END
 
 === cloudhub describe-vpcs
 [source,bash]
