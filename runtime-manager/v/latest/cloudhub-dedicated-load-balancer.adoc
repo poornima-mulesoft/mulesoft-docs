@@ -1,8 +1,6 @@
 = CloudHub Load Balancer
 :keywords: cloudhub, runtime manager, arm, load balancing, vanity url, ssl, two way tls,
 
-[NOTE]
-This feature is currently in Beta and not available for all customers.
 
 == Overview
 
@@ -17,8 +15,22 @@ By using this service to proxy your CloudHub-deployed apps, you can:
 
 [NOTE]
 --
-This is an optional addition to your cloud infrastructure that is not included by default in all CloudHub plans. To enable it, you must first own a link:/runtime-manager/virtual-private-cloud[Virtual Private Cloud offering].
+This is an optional addition to your cloud infrastructure that is not included by default in all CloudHub plans. To enable it, you must first own a link:/runtime-manager/virtual-private-cloud[Virtual Private Cloud].
 This service is designed to have one load balancer per VPC  and although each VPC supports only one domain, you can have multiple environments in the same network, meaning that you can use the same load balancer for your different environments.
+--
+
+== Load Balancer Architecture
+
+Each Load Balancer has an internal domain name.
+The structure is `<lb-name>-internal.lb.anypointdns.net` where `<lb-name>` is the name you gave the load balancer when you created it. This is the reason why the load balancer`s name must be unique.
+
+Additionally, each load balancer has an external domain name that you can ping from outside your network: `<lb-name>.lb.anypointdns.net` where `<lb-name>` is the name you gave the load balancer when you created it.
+
+If you want your load balancer to handle all connections to your application and you don´t want your default domain name for your application publicly exposed, then your application needs to be listening over http on port 8091 or 8092, or you can create a custom mapping policy to redirect outside requests from your load balancer to your specific application.
+
+[NOTE]
+--
+Your load balancer listens for outside requests over https, but it communicates internally with your worker over http. If your Mule application is listening over https, it won´t be able to communicate with your load balancer.
 --
 
 == Using the Load Balancer
@@ -27,20 +39,19 @@ Although this feature will eventually be built into the Runtime Manager UI, curr
 
 [NOTE]
 --
-For a full list of Anypoint-CLI commands and their respective usage, check our link:/anypoint-platform-for-apis/anypoint-platform-cli#List-of-commands[reference page]. +
-A full description of `loadbalancers` and `vpcs` endpoints is available accesing your link:https://anypoint.mulesoft.com/apiplatform/anypoint-platform/#/portals[API Portal].
+For a full list of Anypoint-CLI commands and their respective usage, check our link:/anypoint-platform-for-apis/anypoint-platform-cli#list-of-commands[reference page]. +
+A full description of `loadbalancers` and `vpcs` endpoints is available accesing our link:https://anypoint.mulesoft.com/apiplatform/anypoint-platform/#/portals[API Portal] (make sure to look for `CloudHub`).
 --
-
 
 === Mapping
 
-The load balancer configuration is defined by a list of <<mapping rules>> which describe how input URL should be translated into calls to different CloudHub apps.
+The load balancer configuration is defined by a list of <<Mapping Rules, mapping rules>> which describe how input URL should be translated into calls to different CloudHub apps.
 When creating a simple matching rule, one input address is literally matched to the defined output: the endpoint of one of your applications.
-Instead of using literal matchings you can also use a *Pattern* to match a variable-like input text to an endpoint. See the <<Pattern matching>> section.
+Instead of using literal matchings you can also use a *Pattern* to match a variable-like input text to an endpoint. See the <<Pattern Matching, pattern matching>> section.
 
 By using proxy rules, you can map a domain or subdomain to one of your Mule applications that run in CloudHub
 
-=== Pattern matching
+=== Pattern Matching
 
 A pattern is a string that defines a template for matching an input text. Whatever is placed into curly brackets (`{   }`) is treated as a variable.
 These variables can contain only letters (a-z) and cannot contain any other characters, such as digits, slashes, etc. The variable values can contain the following characters ‘a-z0-1.&?-_’ but no slashes.
@@ -79,30 +90,28 @@ You can create, view and delete existing rules.
 
 The table below contains some rule examples:
 
-[cols="10a,20a,20a,20a,20a,10a",options="header"]
+[cols="10a,20a,20a,20a,10a",options="header"]
 |===
-|Rule # 3+^|Input URL 2+^| Output URL
-|  | *Subdomain* |  *Domain*   |        *URI*        |       *appName*       |   *appURI*
-| 1 | qaparm    | services.com | {appname}/{region}/ | {appname}             | {region}
-| 2 | api       | mcd.com      |                     | internal-router-proxy |
-| 3 | {app}.api | mcd.com      |                     | {app}-mcd             |
-| 4 | api.cce   | mule.com     | /{group}/{version}/ | {group}               | /{version}/
-| 5 |           | example.com  | /{app}/             | {app}                 | /
-| 6 | default   | example.com  |                     | default-app           |
+|Rule # 2+^|Input URL 2+^| Output URL
+|   |  *Domain*    |        *URI*        |       *appName*       |   *appURI*
+| 1 | services.com | {appname}/{region}/ | {appname}             | {region}
+| 2 | mcd.com      |                     | internal-router-proxy |
+| 3 | mcd.com      |                     | {app}-mcd             |
+| 4 | mule.com     | /{group}/{version}/ | {group}               | /{version}/
+| 5 | example.com  | /{app}/             | {app}                 | /
+| 6 | example.com  |                     | default-app           |
 |===
 
 ===== Input URL
 
 The _input URL_ is described as the following parameters, which can be specified by the user:
 
-. *Subdomain* - a String or Pattern which defines a subdomain value of the load balancer domain.
 . *Domain* - The load balancer’s domain (This value should remain constant for the same load balancer)
 . *URI* - a String or Pattern that describes the Input URI.
 
 
 [source,Example,linenums]
 ----
-subdomain={app}
 domain=example.com
 URI=/v1/
 ----
@@ -152,12 +161,18 @@ The load balancer ID is provided to you when you create it. +
 You can also perform a `GET` request to your endpoint /organizations/{orgid}}/loadbalancers` to get the ID.
 --
 
+=== Whitelists
+
+It is possible to whitelist a list of IP addresses from your load balancers by simply passing it a CIDR block of IPs to whitelist. +
+The whitelist works at the load balancer level, not at the CN certificate level. Make sure you only pass IP addresses.
+
+
 === Managing Certificates
 
-==== Certificate Validation
-
 The Cloudhub Load Balancer provides a 2-way SSL client authentication.
-It allows you to provide a `.pem` file certificate to your load balancer to validate client requests.
+It allows you to provide a `.pem` file certificate to your load balancer´s SSL endpoint to validate client requests.
+
+==== Certificate Validation
 
 The load balancer passes the certificate data to the API using the http headers below:
 
@@ -181,10 +196,38 @@ Contains the serial number used by the CA to identify the client.
 
 ==== Adding Revocation Lists
 
-If you manage your revocation list using OCSP, your revocation are defined in the certificate that you upload, so you don't need to take any extra steps.
+CloudHub Load balancer does not support OCSP, so you need to manage your revocations using CRL. You can add a `crlCert` field under the `certificates` field in your JSON when creating the load balancer and specify your revocations there. +
+It is recommended to use the CloudHub REST API to programatically update your revokation lists.
 
-If you manage your revocations using CRL, you can add a `crlCert` field under the `certificates` field in your JSON when creating the load balancer and specify your revocations there.
 
+==== Certificate Ciphers
+
+A list of recommended ciphers suites with a good balance between compatibility and security for your SSL endpoint are below: +
+They all offer forward secrecy, except RC4-SHA which is there to support Internet Explorer 8.
+
+----
+ECDHE-RSA-AES256-GCM-SHA384
+ECDHE-RSA-AES128-GCM-SHA256
+DHE-RSA-AES256-GCM-SHA384
+DHE-RSA-AES128-GCM-SHA256
+ECDHE-RSA-AES256-SHA384
+ECDHE-RSA-AES128-SHA256
+ECDHE-RSA-AES256-SHA
+ECDHE-RSA-AES128-SHA
+DHE-RSA-AES256-SHA256
+DHE-RSA-AES128-SHA256
+DHE-RSA-AES256-SHA
+DHE-RSA-AES128-SHA
+ECDHE-RSA-DES-CBC3-SHA
+EDH-RSA-DES-CBC3-SHA
+AES256-GCM-SHA384
+AES128-GCM-SHA256
+AES256-SHA256
+AES128-SHA256
+AES256-SHA
+AES128-SHA
+DES-CBC3-SHA
+----
 
 == See Also
 
