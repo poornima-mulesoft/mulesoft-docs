@@ -4746,7 +4746,7 @@ CloudHub Architecture,Runtime Manager,latest,cloudhub-architecture.adoc,/runtime
 Command Line Interface Shell for Cloudhub,Runtime Manager,latest,cloudhub-cli.adoc,/runtime-manager/cloudhub-cli
 CloudHub Fabric,Runtime Manager,latest,cloudhub-fabric.adoc,/runtime-manager/cloudhub-fabric
 CloudHub FAQ,Runtime Manager,latest,cloudhub-faq.adoc,/runtime-manager/cloudhub-faq
-CloudHub Load Balancer,Runtime Manager,latest,cloudhub-load-balancer.adoc,/runtime-manager/cloudhub-load-balancer
+CloudHub Load Balancer,Runtime Manager,latest,cloudhub-load-balancer.adoc,/runtime-manager/cloudhub-dedicated-load-balancer
 CloudHub Networking Guide,Runtime Manager,latest,cloudhub-networking-guide.adoc,/runtime-manager/cloudhub-networking-guide
 CloudHub,Runtime Manager,latest,cloudhub.adoc,/runtime-manager/cloudhub
 Command Line Tools,Runtime Manager,latest,command-line-tools.adoc,/runtime-manager/command-line-tools
