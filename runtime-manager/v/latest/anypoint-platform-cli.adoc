@@ -564,7 +564,7 @@ Beyond the `--certificateName` option, this command takes the default `--help` o
 ----
 $ cloudhub load-balancer mappings add <name> <index> <inputUri> <appName> <appUri> [certificateName]
 ----
-This command adds a proxy mapping rule to the load balancer specified in <name> at the priority index specified in <index>, using the values set in the variables +
+This command adds a proxy mapping rule to the load balancer specified in <name> at the priority index specified in <index> in the CN passed under the `certificateName` option, using the values set in the variables +
 
 [cols="18a,62a,20a",options="header"]
 |===
@@ -579,159 +579,181 @@ This command adds a proxy mapping rule to the load balancer specified in <name> 
 
 For the values in the example above, for an input call to `my-superapp.api.example.com/status?limit=10`, the endpoint `my-superapp-example: /status?limit=10` will be called for the application.
 
-If no `certificateName` is passed, Anypoint CLI returns the mappings for the default SSL endpoint.
+Beyond the `--certificateName` option, this command takes the default `--help` option. +
+If no `certificateName` is passed, Anypoint CLI adds the mappings for the default SSL endpoint.
+
+=== cloudhub load-balancer mappings remove
+[source,bash,linenums]
+----
+$ cloudhub load-balancer mappings remove <name> <index> [certificateName]
+----
+This command removes the proxy mapping rules from the load balancer specified in <name> at the priority index specified in <index> and the CN specified as the `certificateName` option.
+
+Beyond the `--certificateName` option, this command takes the default `--help` option. +
+If no `certificateName` is passed, Anypoint CLI removes the mappings for the default SSL endpoint.
+
+=== cloudhub describe-regions
+[source,bash]
+----
+$ cloudhub describe-regions [options]
+----
+This command lists all supported regions. +
+This command does not take any options, except for the default `--help`.
+
+=== cloudhub describe-runtimes
+[source,bash]
+----
+$ cloudhub describe-runtimes [options]
+----
+This command lists all supported runtimes. +
+This command does not take any options, except for the default `--help`.
+
+=== cloudhub vpc list
+[source,bash]
+----
+$ cloudhub vpc list [options]
+----
+This command lists all available VPCs. It returns ID, region, and environment of the network and wether it is the default VPC or not.
+
+=== cloudhub vpc describe
+[source,bash,linenums]
+----
+$ cloudhub vpc describe [options] <name>
+----
+This command displays information about the VPC that is specified in <name>. +
+You can start typing your VPC's name and hit `tab` for Anypoint-CLI to autocomplete it, or you can double tap `tab` for a full list of all the values you can pass. +
+This command does not take any options, except for the default `--help`.
+
+=== cloudhub vpc describe-json
+[source,bash,linenums]
+----
+cloudhub vpc describe [options] <name>
+----
+This command displays raw JSON response of the VPC that is specified in <name>. +
+You can start typing your VPC's name and hit `tab` for Anypoint-CLI to autocomplete it, or you can double tap `tab` for a full list of all the values you can pass. +
+This command does not take any options, except for the default `--help`.
+
+=== cloudhub vpc create
+[source,bash,linenums]
+----
+$ cloudhub vpc create [environments...] <name> <region> <cidrBlock>
+----
+This command creates a VPC using the name in <name> in the region specified in <region> and setting a firewall rule for the IP, or range of IP addresses, passed in <cidrBlock>.
+
+[CAUTION]
+--
+When creating a VPC, make sure to allow your outbound address. +
+By default, all IP addresses are blocked and you need to authorize IP addresses, or range of addresses to your VPC firewall rule.
+--
+
+[NOTE]
+A VPC needs to be bound to either an organization, or business group within that organization. When creating a VPC, you need to assign it somewhere, otherwise the VPC will not work.
+
+Beyond the default `--help` option, this command also takes the `--environments` option. You need to pass the link:/access-management/environments[environment] to which this VPC is associated.
+
+=== cloudhub vpc delete
+[source,bash,linenums]
+----
+$ cloudhub vpc delete <name>
+----
+This command deletes the VPC specified in <name>.
+
+[WARNING]
+This command does not prompt twice before deleting. If you send a delete instruction, it does not ask for confirmation.
+
+This command does not take any options, except for the default `--help`.
+
+=== cloudhub vpc environments add
+[source,bash,linenums]
+----
+cloudhub vpc environments add [environments...] <vpc>
+----
+This command assigns the VPC defined in <vpc> to the environment passed in the `--environments` option. +
+Beyond the `--environments` option, this command also takes the default `--help` option.
+
+=== cloudhub vpc business-groups add
+[source,bash,linenums]
+----
+$ cloudhub vpc business-groups add [options] <vpc> <businessGroups...>
+----
+This command assigns the VPC defined in <vpc> to the business group passed in <businessGroups> +
+This command does not take any options, except for the default `--help`.
+
+=== cloudhub vpc business-groups remove
+[source,bash,linenums]
+----
+$ cloudhub vpc business-groups remove [options] <vpc> <businessGroups...>
+----
+This command removes the VPC defined in <vpc> from the business group passed in <businessGroups> +
+
+[WARNING]
+This command does not prompt twice before removing the VPC from the specified resource. If you send a remove instruction, it does not ask for confirmation.
+
+This command does not take any options, except for the default `--help`.
+
+=== cloudhub vpc dns-servers set
+[source,bash,linenums]
+----
+$ cloudhub vpc dns-servers set [options] <vpc>
+----
+This command sets a list of local host names (internal domain names) to be resolved using your internal DNS servers for which you need to provide their public IP addresses. +
+Whenever those private domains are provided, your worker will resolve them using your private DNS, so you can still use the internal host names of your private network.
+
+[NOTE]
+This feature is supported by workers running Mule versions 3.4 and older.
+
+This command does not take any options, except for the default `--help`.
 
 
+=== cloudhub vpc firewall-rules describe
+[source,bash,linenums]
+----
+$ cloudhub vpc firewall-rules describe <vpc>
+----
+This command describes all the firewall rules for the VPC defined in <vpc>. +
+This command does not take any options, except for the default `--help`.
 
 
+=== cloudhub vpc firewall-rules add
+[source,bash,linenums]
+----
+$ cloudhub vpc firewall-rules add <vpc> <cidrBlock> <protocol> <fromPort> [toPort]
+----
+This command adds a firewall rule to the VPC defined in <vpc> using the values set in the variables +
+
+[cols="18a,62a,20a",options="header"]
+|===
+|Value |Description |Example
+| vpc |Id of the VPC to which this load balancer is bound. | vpc-827160e6
+| cidrBlock | IP address or range of addresses for the firewall to allow  | 192.0.1.*
+| protocol | |
+| fromPort | |
+| toPort | |
+|===
+
+This command does not take any options, except for the default `--help`.
+
+=== cloudhub vpc firewall-rules remove
+[source,bash,linenums]
+----
+$ cloudhub vpc firewall-rules remove <vpc> <index>
+----
+This command removes the firewall rule from the VPC specified in <vpc> at the index passed in the <index>. +
+This command does not take any options, except for the default `--help`.
 
 
+=== token
+[source,bash]
+----
+$ token [options]
+----
+This command returns your API access token. +
+This command does not take any options, except for the default `--help`.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// DEPRECATED COMMANDS
-//
-// === cloudhub describe-lb-rules
-// [source,bash]
-// ----
-// $ cloudhub describe-lb-rules [options] <name>
-// ----
-// This command lists the proxy rules for the load balancer specified in <name>. +
-// This command does not take any options, except for the default `--help`.
-//
-// === cloudhub add-lb-rule
-// [source,bash]
-// ----
-// $ cloudhub add-lb-rule [options] <name> <index> <inputSubdomain> <inputUri> <appName> <appUri>
-// ----
-// This command adds a mapping rule to the load balancer specified in <name> at the priority index specified in <index>, using the values set in the variables +
-//
-// [cols="18a,62a,20a",options="header"]
-// |===
-// |Value |Description |Example
-// |name|Name of the load balancer to which this rule is applied. |testloadbalancer
-// |index|Priority of the rule.  |1
-// |inputSubdomain|Name of the sub-domain of your input URL |{app}.api
-// |inputUri|Name of the URI of your input URL |example.com
-// |appName|Name of the app of your output URL to which the request is forwarded |{app}-example
-// |appUri|URI of the app of your output URL to which the request is forwarded |/
-// |===
-//
-// For the values in the example above, for an input call to `my-superapp.api.example.com/status?limit=10`, the endpoint `my-superapp-example: /status?limit=10` will be called for the application.
-//
-//
-// === cloudhub delete-lb-rule
-// [source,bash]
-// ----
-// $ cloudhub delete-lb-rule [options] <name> <index>
-// ----
-// This command deletes the rule at the index specified in <index> from the load balancer specified <name>.
-//
-// [WARNING]
-// This command does not prompt twice before deleting. If you send a delete instruction, it does not ask for confirmation.
-//
-// This command does not take any options, except for the default `--help`.
-//
-// === cloudhub create-lb
-// [source,bash]
-// ----
-// $ cloudhub create-lb [options] <name> <domain> <vpcId> <vpcRegion> <publicKey> <privateKey> <clientCertificate>
-// ----
-// This command creates a load balancer using the specified values in the variables.
-// [cols="30a,50a,20a",options="header"]
-// |===
-// |Value |Description |Example
-// | name |Name for the load balancer. | newtestloadbalancer
-// | domain |Domain of the load balancer. | www.lbtest.com
-// | vpcId |Id of the VPC to which this load balancer is bound. | vpc-827160e6
-// | vpcRegion |Region of the VPC to which the load balancer is bound. +
-// For a list of all supported regions, use the <<cloudhub describe-regions>> command. | us-east-1
-// | publicKey |Absolute path to the `.asc` file of your public key in your local hard drive. | /Users/mule/Documents/publicKey.asc
-// | privateKey |Absolute path to the `.asc` file of your private key in your local hard drive. | /Users/mule/Documents/privateKey.asc
-// | clientCertificate |Absolute path to the `.pem` file of your certificate in your local hard drive. | /Users/mule/Documents/cert.pem
-// |===
-//
-// This command does not take any options, except for the default `--help`.
-//
-//
-// === cloudhub modify-lb
-// [source,bash]
-// ----
-// $ cloudhub modify-lb [options] <name>
-// ----
-// This command updates the load balancer specified in <name>. +
-// The updated values should be passed as options. Check all the options below:
-// [cols="30a,70a",options="header"]
-// |===
-// |Value    			    |Description
-// |privateKey         |Full path to the updated private key.
-// |publicKey          |Full path to the updated `.asc` file of your public key.
-// |clientCertificate  |Full path to the updated `.pem` file certificate.
-// |domain             |Updated domain.
-// |help               |Outputs usage information about this command.
-// |===
-//
-// === cloudhub delete-lb
-// [source,bash]
-// ----
-// $ cloudhub delete-lb [options] <name>
-// ----
-// This command deletes the load balancer specified in <name>.
-//
-// // START do not remove
-// === cloudhub describe-regions
-// [source,bash]
-// ----
-// $ cloudhub describe-regions [options]
-// ----
-// This command lists all supported regions. +
-// This command does not take any options, except for the default `--help`.
-//
-// === cloudhub describe-runtimes
-// [source,bash]
-// ----
-// $ cloudhub describe-runtimes [options]
-// ----
-// This command lists all supported runtimes. +
-// This command does not take any options, except for the default `--help`.
-// // END
-//
-// === cloudhub describe-vpcs
-// [source,bash]
-// ----
-// $ cloudhub describe-vpcs [options]
-// ----
-// This command lists all available VPCs. It returns ID, region, and environment of the network and wether it is the default VPC or not.
-//
-// === token
-// [source,bash]
-// ----
-// $ token [options]
-// ----
-// This command returns your API access token. +
-// This command does not take any options, except for the default `--help`.
-//
-// === exit
-// [source,bash]
-// ----
-// $ exit [options]
-// ----
-// This command exits Anypoint-CLI. +
-// This command does not take any options, except for the default `--help`
+=== exit
+[source,bash]
+----
+$ exit [options]
+----
+This command exits Anypoint-CLI. +
+This command does not take any options, except for the default `--help`
