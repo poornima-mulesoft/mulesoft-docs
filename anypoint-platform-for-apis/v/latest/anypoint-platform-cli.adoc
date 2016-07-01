@@ -492,6 +492,8 @@ This command adds an SSL endpoint to the load balancer specified in <name>, usin
 | privateKey |Absolute path to the `.asc` file of your private key in your local hard drive. | /Users/mule/Documents/privateKey.asc
 |===
 
+[NOTE]
+Cloudhub does not implement the Online Certificate Status Protocol (OCSP), so in order to keep your certification revocation list up to date, it's recommended to use the link:https://anypoint.mulesoft.com/apiplatform/sebastiankorol/#/portals/organizations/e853b9c5-6fb4-4590-8b25-0d29efeb8e98/apis/66762/versions/69421[REST API] to programmatically update your certificates.
 
 This command does not take any options, except for the default --help.
 
