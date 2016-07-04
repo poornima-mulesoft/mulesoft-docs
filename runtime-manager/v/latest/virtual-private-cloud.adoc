@@ -8,7 +8,7 @@ The Virtual Private Cloud (VPC) offering allows you to virtually create a privat
 
 == How VPC Works
 
-The Virtual Private Cloud creates a logically private and isolated network to host your CloudHub worker instances. You can also connect this network to other VPCs or other data centers via a secure VPN connection. This allows CloudHub workers to access resources behind your corporate firewall (see image below).
+The Virtual Private Cloud is a logically private and isolated network to host your CloudHub worker instances. You can also connect this network to other VPCs or other data centers via a secure VPN connection. This allows CloudHub workers to access resources behind your corporate firewall.
 
 image:CHVPC01.png[CHVPC01]
 
@@ -39,6 +39,30 @@ The first step in setting up VPC for your account is to select the appropriate c
 Once you have selected an option, download link:_attachments/VPC-Gateway-Questionnaire-v8.xlsm[the VPC discovery form] (requires at least MS Excel 2007 with macros enabled), then enter data to communicate the necessary details required for your connectivity method. Once they receive your form and answer any remaining questions, the CloudHub support team securely exchanges keys and supplies instructions on how to configure your router(s).
 
 The SLA for configuring VPC is 5 business days after link:_attachments/VPC-Gateway-Questionnaire-v8.xlsm[the VPC discovery form] has been completed and returned, though it may be completed sooner.
+
+=== Size Your VPC
+
+When you create a VPC, the range of IP addresses for this network needs to be specified in the form of a Classless Inter-Domain Routing (CIDR) block, using link:https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#IPv4_CIDR_blocks[CIRD notation].
+
+In order to calculate the proper sizing for your VPC you need to understand that the amount of dedicated IP addresses is not the same as the amount of workers you have deployed. +
+For each worker deployed to CloudHub, the following IP assignation takes place:
+
+* For better fault tolerance the VPC subnet may be divided in up to 4 Availibility Zones.
+* A few IP addresses are reserved for infrastructure.
+* At least two IP addresses per worker to perform at zero-downtime.
+
+Due to this structure, the smallest network subnet block you can assign for your VPC is /24 and the largest /16. +
+A /24 (link:https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#IPv4_CIDR_blocks[CIRD notation]) subnet has 256 IP addresses. +
+Reserving one IP address for the network and one for broadcast you have 254 hosts for your worker, which get divided into 4 availability zones of 62 hosts each. Consider that each worker potentially needs two IP addresses for zero-downtime, that's around 30 IP addresses to assign to your workers.
+
+[NOTE]
+--
+Updating the size of a VPC once it's created and hosting workers demands for all applications to be undeployed before resizing. +
+When planning a VPC size, keep in mind to leave a few spare IP addresses in case you need to host more workers.
+--
+
+The safe rule of thumb for deciding the size of your VPC subnet is `10 times the maximum number of expected apps to deploy in the VPC`. +
+
 
 == Frequently Asked Questions about CloudHub VPC
 
