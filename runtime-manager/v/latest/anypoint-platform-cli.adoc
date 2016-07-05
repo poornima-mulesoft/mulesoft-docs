@@ -84,6 +84,9 @@ A few considerations to keep in mind while using Anypoint-CLI:
 Once you have your parameters in order, you can pass commands. +
 A list of available commands is below:
 
+// Names from branch updated 27th June +
+// https://github.com/sebastiankorol/anypoint-cli/commit/2a6256d52863acb6a5bba39eb9cd44f58d03d467#diff-04c6e90faac2675aa89e2176d2eec7d8
+
 [width="100a",cols="35a,65a",options="header"]
 |===
 |Command |Description
