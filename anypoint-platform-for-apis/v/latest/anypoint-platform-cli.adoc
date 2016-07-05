@@ -635,7 +635,8 @@ This command does not take any options, except for the default `--help`.
 ----
 $ cloudhub vpc create [environments...] <name> <region> <cidrBlock>
 ----
-This command creates a VPC using the name in <name> in the region specified in <region> and setting a firewall rule for the IP, or range of IP addresses, passed in <cidrBlock>.
+This command creates a VPC using the name in <name> in the region specified in <region>, with the size passed in <cidrBlock> in the form of a Classless Inter-Domain Routing (CIDR) block, using link:https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#IPv4_CIDR_blocks[CIDR notation].
+
 
 [CAUTION]
 --

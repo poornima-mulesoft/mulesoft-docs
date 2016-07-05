@@ -42,7 +42,7 @@ The SLA for configuring VPC is 5 business days after link:_attachments/VPC-Gatew
 
 === Size Your VPC
 
-When you create a VPC, the range of IP addresses for this network needs to be specified in the form of a Classless Inter-Domain Routing (CIDR) block, using link:https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#IPv4_CIDR_blocks[CIRD notation].
+When you create a VPC, the range of IP addresses for this network needs to be specified in the form of a Classless Inter-Domain Routing (CIDR) block, using link:https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#IPv4_CIDR_blocks[CIDR notation].
 
 In order to calculate the proper sizing for your VPC you need to understand that the amount of dedicated IP addresses is not the same as the amount of workers you have deployed. +
 For each worker deployed to CloudHub, the following IP assignation takes place:
@@ -52,7 +52,7 @@ For each worker deployed to CloudHub, the following IP assignation takes place:
 * At least two IP addresses per worker to perform at zero-downtime.
 
 Due to this structure, the smallest network subnet block you can assign for your VPC is /24 and the largest /16. +
-A /24 (link:https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#IPv4_CIDR_blocks[CIRD notation]) subnet has 256 IP addresses. +
+A /24 (link:https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#IPv4_CIDR_blocks[CIDR notation]) subnet has 256 IP addresses. +
 Reserving one IP address for the network and one for broadcast you have 254 hosts for your worker, which get divided into 4 availability zones of 62 hosts each. Consider that each worker potentially needs two IP addresses for zero-downtime, that's around 30 IP addresses to assign to your workers.
 
 [NOTE]
