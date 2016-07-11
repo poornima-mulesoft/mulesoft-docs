@@ -12,7 +12,7 @@ You can choose to use this isolated network as it best suites your needs.
 
 == How VPC Works
 
-As opposed to the default configuration, where all CloudHub workers reside in a link:/runtime-manager/cloudhub-architecture#workers-and-multitenancy[multi-tenant public cloud], the Virtual Private Cloud grants you a logically private and isolated network dedicated to host your CloudHub worker instances. +
+As opposed to the default configuration, where all CloudHub workers reside in a link:/runtime-manager/cloudhub-architecture#global-worker-clouds[multi-tenant public cloud], the Virtual Private Cloud grants you a logically private and isolated network dedicated to host your CloudHub worker instances. +
 
 All VPCs need to be associated to a CloudHub region and to an environment inside one of your CloudHub organization or business group. +
 You can choose to mark a VPC as *default* for the region in which you created it, meaning that by default, all environments in this region that are not associated to a VPC, will be associated to the default VPC.
@@ -30,7 +30,7 @@ In order to properly configure a VPC for your account, you need to keep a few co
 Defining a proper sizing for your VPC at the beginning is crucial, since once a VPC is created you need to remove all your workers and redeploy them once the change is complete. In order to avoid unnecessary down time, it is recommended to design your VPC to scale accordingly.
 It is important to define a proper IP address range to determine the <<Size Your VPC, size for your VPC>>.
 
-As stated earlier, creating a VPC on its own is just the first step. In order for the VPC to be able to host your Workers, it needs to be bound to a business group and an environment within your organization, along to a specific CloudHub region. So understanding how <<VPC Entitlements, entitlements>> work is essential.
+As stated earlier, creating a VPC on its own is just the first step. In order for the VPC to be able to host your Workers, it needs to be bound to a business group and a specific CloudHub region. So understanding how <<VPC Entitlements, entitlements>> work is essential.
 
 Once this is defined, you can proceed to create your VPC using the link:/anypoint-platform-for-apis/anypoint-platform-cli[Anypoint Platform CLI] (Look for the specific `vpc create` command).
 
@@ -43,7 +43,7 @@ When you create a VPC, the range of IP addresses for this network needs to be sp
 In order to calculate the proper sizing for your VPC you need to understand that the amount of dedicated IP addresses is not the same as the amount of workers you have deployed. +
 For each worker deployed to CloudHub, the following IP assignation takes place:
 
-* For better fault tolerance the VPC subnet may be divided in up to 4 Availibility Zones.
+* For better fault tolerance the VPC subnet may be divided in up to 4 Availability Zones.
 * A few IP addresses are reserved for infrastructure.
 * At least two IP addresses per worker to perform at zero-downtime.
 
@@ -112,10 +112,6 @@ If you have VPC and you don't want your application exposed via the publicly acc
 *How do I communicate with my workers through my VPC without going over the public Internet?*
 
 You can communicate with your Mule worker by using mule-worker-internal-myapp.cloudhub.io as the address in your configuration. This is a DNS A record which includes the IP addresses of all your workers.
-
-*Can I assign an environment a VPC subnet?*
-
-No. While VPCs can be shared across environments, you cannot control what subnet the environment deploys to.
 
 == See Also
 
