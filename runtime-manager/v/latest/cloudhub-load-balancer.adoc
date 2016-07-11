@@ -77,30 +77,28 @@ You can create, view and delete existing rules.
 
 The table below contains some rule examples:
 
-[cols="10a,20a,20a,20a,20a,10a",options="header"]
+[cols="10a,20a,20a,20a,10a",options="header"]
 |===
-|Rule # 3+^|Input URL 2+^| Output URL
-|  | *Subdomain* |  *Domain*   |        *URI*        |       *appName*       |   *appURI*
-| 1 | qaparm    | services.com | {appname}/{region}/ | {appname}             | {region}
-| 2 | api       | mcd.com      |                     | internal-router-proxy |
-| 3 | {app}.api | mcd.com      |                     | {app}-mcd             |
-| 4 | api.cce   | mule.com     | /{group}/{version}/ | {group}               | /{version}/
-| 5 |           | example.com  | /{app}/             | {app}                 | /
-| 6 | default   | example.com  |                     | default-app           |
+|Rule # 2+^|Input URL 2+^| Output URL
+|   |  *Domain*    |        *URI*        |       *appName*       |   *appURI*
+| 1 | services.com | {appname}/{region}/ | {appname}             | {region}
+| 2 | mcd.com      |                     | internal-router-proxy |
+| 3 | mcd.com      |                     | {app}-mcd             |
+| 4 | mule.com     | /{group}/{version}/ | {group}               | /{version}/
+| 5 | example.com  | /{app}/             | {app}                 | /
+| 6 | example.com  |                     | default-app           |
 |===
 
 ===== Input URL
 
 The _input URL_ is described as the following parameters, which can be specified by the user:
 
-. *Subdomain* - a String or Pattern which defines a subdomain value of the load balancer domain.
 . *Domain* - The load balancer’s domain (This value should remain constant for the same load balancer)
 . *URI* - a String or Pattern that describes the Input URI.
 
 
 [source,Example,linenums]
 ----
-subdomain={app}
 domain=example.com
 URI=/v1/
 ----
