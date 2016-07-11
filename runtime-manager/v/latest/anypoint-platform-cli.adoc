@@ -200,7 +200,7 @@ This command displays information on the business group you pass in <name>.
 If your business group or organization name contains spaces, you need to enclose its name between `"` characters.
 
 ----
-account describe-business-group "QA Organization"
+$ account describe-business-group "QA Organization"
 ----
 --
 
@@ -219,7 +219,7 @@ This command makes the business group you specified in <name> active.
 If your business group or organization name contains spaces, you need to enclose its name between `"` characters.
 
 ----
-account switch-business-group "QA Organization"
+$ account switch-business-group "QA Organization"
 ----
 --
 
@@ -424,7 +424,7 @@ This command does not take any options, except for the default `--help`.
 === cloudhub load-balancer describe
 [source,bash,linenums]
 ----
-cloudhub load-balancer describe [options] <name>
+$ cloudhub load-balancer describe [options] <name>
 ----
 This command displays information about the load balancer that is specified in <name>. +
 You can start typing your load balancer's name and hit `tab` for Anypoint-CLI to autocomplete it, or you can double tap `tab` for a full list of all the values you can pass. +
@@ -434,7 +434,7 @@ This command does not take any options, except for the default `--help`.
 === cloudhub load-balancer describe-json
 [source,bash,linenums]
 ----
-cloudhub load-balancer describe [options] <name>
+$ cloudhub load-balancer describe [options] <name>
 ----
 This command displays raw JSON response of the load balancer that is specified in <name>. +
 You can start typing your load balancer's name and hit `tab` for Anypoint-CLI to autocomplete it, or you can double tap `tab` for a full list of all the values you can pass. +
@@ -443,7 +443,7 @@ This command does not take any options, except for the default `--help`.
 === cloudhub load-balancer create
 [source,bash,linenums]
 ----
-cloudhub load-balancer create [options] <vpc> <name> <certificate> <privateKey>
+$ cloudhub load-balancer create [options] <vpc> <name> <certificate> <privateKey>
 ----
 This command creates a load balancer using the specified values in the variables.
 [cols="12,53a,35a",options="header"]
@@ -463,7 +463,7 @@ By defualt your load balancer listens external requests on https and communicate
 === cloudhub load-balancer start
 [source,bash,linenums]
 ----
-cloudhub load-balancer start [options] <name>
+$ cloudhub load-balancer start [options] <name>
 ----
 This command starts the load balancer specified in <name>. +
 This command does not take any options, except for the default --help.
@@ -472,7 +472,7 @@ This command does not take any options, except for the default --help.
 === cloudhub load-balancer stop
 [source,bash,linenums]
 ----
-cloudhub load-balancer stop [options] <name>
+$ cloudhub load-balancer stop [options] <name>
 ----
 This command stops the load balancer specified in <name>. +
 This command does not take any options, except for the default --help.
@@ -480,7 +480,7 @@ This command does not take any options, except for the default --help.
 === cloudhub load-balancer delete
 [source,bash,linenums]
 ----
-cloudhub load-balancer delete [options] <name>
+$ cloudhub load-balancer delete [options] <name>
 ----
 This command deletes the load balancer specified in <name>. +
 
@@ -492,7 +492,7 @@ This command does not take any options, except for the default --help.
 === cloudhub load-balancer ssl-endpoint add
 [source,bash,linenums]
 ----
-cloudhub load-balancer ssl-endpoint add [options] <name> <certificate> <privateKey>
+$ cloudhub load-balancer ssl-endpoint add [options] <name> <certificate> <privateKey>
 ----
 This command adds an SSL endpoint to the load balancer specified in <name>, using the certificate and private key passed.
 
@@ -512,7 +512,7 @@ This command does not take any options, except for the default --help.
 === cloudhub load-balancer ssl-endpoint remove
 [source,bash,linenums]
 ----
-cloudhub load-balancer ssl-endpoint remove [options] <name> <certificateName>
+$ cloudhub load-balancer ssl-endpoint remove [options] <name> <certificateName>
 ----
 This command removes the ssl certificate specified in <certificateName> from the load balancer specified in <name>.
 
@@ -524,7 +524,7 @@ This command does not take any options, except for the default --help.
 === cloudhub load-balancer ssl-endpoint set-default
 [source,bash,linenums]
 ----
-cloudhub load-balancer ssl-endpoint set-default [options] <name> <certificateName>
+$ cloudhub load-balancer ssl-endpoint set-default [options] <name> <certificateName>
 ----
 This command sets the certificate specified in <certificateName> as the default  certificate for the load balancer passed in <name>. +
 This command does not take any options, except for the default --help.
@@ -532,7 +532,7 @@ This command does not take any options, except for the default --help.
 === cloudhub load-balancer ssl-endpoint describe
 [source,bash,linenums]
 ----
-cloudhub load-balancer ssl-endpoint describe [options] <name> <certificateName>
+$ cloudhub load-balancer ssl-endpoint describe [options] <name> <certificateName>
 ----
 This command shows information about the configuration of the load balancer passed in <name> for the common name of the certificate specified in <certificateName>. +
 This command does not take any options, except for the default --help.
@@ -540,7 +540,7 @@ This command does not take any options, except for the default --help.
 === cloudhub load-balancer whitelist add
 [source,bash,linenums]
 ----
-cloudhub load-balancer whitelist add [options] <name> <cidrBlock>
+$ cloudhub load-balancer whitelist add [options] <name> <cidrBlock>
 ----
 This command adds an IP, or range of IPs addresses specified in <cidrBlock> to the whitelist of the load balancer specified in <name>.
 
@@ -639,7 +639,7 @@ This command does not take any options, except for the default `--help`.
 === cloudhub vpc describe-json
 [source,bash,linenums]
 ----
-cloudhub vpc describe [options] <name>
+$ cloudhub vpc describe [options] <name>
 ----
 This command displays raw JSON response of the VPC that is specified in <name>. +
 You can start typing your VPC's name and hit `tab` for Anypoint-CLI to autocomplete it, or you can double tap `tab` for a full list of all the values you can pass. +
