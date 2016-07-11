@@ -21,6 +21,17 @@ You can install Anypoint-CLI using node's default package manager by typing in y
 $ npm install -g anypoint-cli
 ----
 
+If you already have Anypoint CLI running on your machine, you can get the latest version by running
+
+[source,bash]
+----
+$ npm update -g anypoint-cli
+----
+
+[NOTE]
+Depending on the configuration of your system, you might have to run these commands using administrator`s credentials.
+
+
 == Usage
 
 Every instance of Anypoint-CLI takes any of the following parameters:
