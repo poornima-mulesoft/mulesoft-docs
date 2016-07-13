@@ -7,7 +7,7 @@ image:cloudhub-logo.png[cloudhub]
 The Virtual Private Cloud (VPC) offering allows you to virtually create a private and isolated network in the cloud to host your link:/runtime-manager/cloudhub-architecture#cloudhub-workers[CloudHub workers]. +
 You can choose to use this isolated network as it best suites your needs.
 
-* Host your applications in a VPC to take advantage of its link:/runtime-manager/cloudhub-load-balancer[load balancer features]
+* Host your applications in a VPC and take advantage of its link:/runtime-manager/cloudhub-load-balancer[load balancer features]
 * Connect your VPC to your corporate intranet – whether on-premises or in other clouds – via a VPN connection as if they were all part of a single, private network.
 
 == How VPC Works
@@ -17,8 +17,9 @@ As opposed to the default configuration, where all CloudHub workers reside in a 
 All VPCs need to be associated to a CloudHub region and to an environment inside one of your CloudHub organization or business group. +
 You can choose to mark a VPC as *default* for the region in which you created it, meaning that by default, all environments in this region that are not associated to a VPC, will be associated to the default VPC.
 
-Each VPC can host one or many link:/runtime-manager/cloudhub-networking-guide#load-balancing[load balancers], and each load balancer has a CNAME record that hosts link:/runtime-manager/cloudhub-load-balancer#mapping[mapping lists] under the same SSL endpoint. +
-Each SSL endpoint can also have link:https://en.wikipedia.org/wiki/Subject_Alternative_Name[Subject Alternative Names (SAN)] so the same certificate can be used across all matching rules. This allows you to host your CloudHub applications in a maintainable, secure, and scalable environment, that you can control and administrate.
+Each VPC can host one or many link:/runtime-manager/cloudhub-networking-guide#load-balancing[load balancers] with a _DNS A record_ that you can add to your own DNS CNAME record to point to. This way you can configure your VPC´s load balancer to handle requests to your own domain.
+
+You can also configure an SSL endpoint with a link:https://en.wikipedia.org/wiki/Subject_Alternative_Name[Subject Alternative Names (SAN)] so the same certificate can be used across all matching rules. This allows you to host your CloudHub applications in a maintainable, secure, and scalable environment, that you can control and administrate.
 
 You can also connect this network to other VPCs or other data centers via a secure VPN connection. This allows CloudHub workers to access resources behind your corporate firewall. You can leverage an *IPSec* gateway or *Amazon Web Services (AWS) _Direct Connect_* for VPN connectivity. +
 Learn more about each connection alternative in the <<VPC Connectivity Methods>> section below.
