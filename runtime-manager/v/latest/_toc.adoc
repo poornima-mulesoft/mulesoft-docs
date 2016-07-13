@@ -59,3 +59,4 @@
 ***** link:/runtime-manager/update-all-notifications[Update All Notifications]
 ***** link:/runtime-manager/update-notification[Update Notification]
 *** link:/runtime-manager/maintenance-and-upgrade-policy[Maintenance and Upgrade Policy]
+** link:/runtime-manager/anypoint-platform-cli[Command Line Inerface Shell]
