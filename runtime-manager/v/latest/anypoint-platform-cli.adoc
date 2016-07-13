@@ -457,6 +457,8 @@ This command creates a load balancer using the specified values in the variables
 | privateKey |Absolute path to the `.asc` file of your private key in your local hard drive. | /Users/mule/Documents/privateKey.asc
 |===
 
+Files need to be pem encoded and not encrypted.
+
 [CAUTION]
 The name for the load balancer that you pass in <name> must be unique. +
 By default your load balancer listens external requests on https and communicates with your workers internally through http. You need to configure your application to listen through http on port 8091 for your load balancer to work.
@@ -528,9 +530,9 @@ Besides the default `--help` option, this command takes the following options:
 [cols="15a,85a",options="header"]
 |===
 |Value |Description
-|http | Specifies the Load balancer HTTP behavior. It can be set to `on` `off` or `redirect`.
+|http | Specifies the Load balancer HTTP behavior. It can be set to `on` `off` or `redirect`. (no escucha en http) on contesta dependiendo de tu  sslendpoint default
 |clientCertificate | Client certificate file
-|verificationMode  | Specifies the client verification modeñ. It can be set to `on` (verify always) `off` (don´t verify) or `opional` (Verification optional).
+|verificationMode  | Specifies the client verification mode. It can be set to `on` (verify always) `off` (don´t verify) or `optional` (Verification optional).
 |crl | Certificate Revocation List file
 |tlsv1  | Supports TLSv1 in addition to TLSv1.1 and TLSv1.2
 |===
@@ -788,9 +790,9 @@ This command adds a firewall rule to the VPC defined in <vpc> using the values s
 |Value |Description |Example
 | vpc |Id of the VPC to which this load balancer is bound. | vpc-827160e6
 | cidrBlock | IP address in CIDR notation for the firewall to allow  | 192.0.1.0/27
-| protocol | The |
-| fromPort | |
-| toPort | |
+| protocol | The  TCP/UDP|
+| fromPort | 216-1|
+| toPort | optional|
 |===
 
 [CAUTION]
