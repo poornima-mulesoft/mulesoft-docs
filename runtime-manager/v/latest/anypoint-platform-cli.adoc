@@ -1,7 +1,7 @@
 = Command Line Interface Shell for Anypoint Platform.
 :keywords: administration, api, organization, users, gateway, theme, cli
 
-Anypoint Platform provides you a command line tool to interact with your Cloudhub applications, link:/runtime-manager/virtual-private-cloud[VPCs] and link:/runtime-manager/cloudhub-load-balancer[Cloudhub load balancers] through both interactive shell and standard CLI modes.
+Anypoint Platform provides you a command line tool to interact with your Cloudhub applications, link:/runtime-manager/virtual-private-cloud[VPCs] and link:/runtime-manager/cloudhub-dedicated-load-balancer[Cloudhub load balancers] through both interactive shell and standard CLI modes.
 
 == Assumptions
 

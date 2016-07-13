@@ -7,7 +7,7 @@ image:cloudhub-logo.png[cloudhub]
 The Virtual Private Cloud (VPC) offering allows you to virtually create a private and isolated network in the cloud to host your link:/runtime-manager/cloudhub-architecture#cloudhub-workers[CloudHub workers]. +
 You can choose to use this isolated network as it best suites your needs.
 
-* Host your applications in a VPC and take advantage of its link:/runtime-manager/cloudhub-load-balancer[load balancer features]
+* Host your applications in a VPC and take advantage of its link:/runtime-manager/cloudhub-dedicated-load-balancer[load balancer features]
 * Connect your VPC to your corporate intranet – whether on-premises or in other clouds – via a VPN connection as if they were all part of a single, private network.
 
 == How VPC Works
@@ -60,11 +60,16 @@ When planning a VPC size, keep in mind to leave a few spare IP addresses in case
 
 The safe rule of thumb for deciding the size of your VPC subnet is `10 times the maximum number of expected apps to deploy in the VPC`. +
 
-=== VPC Entitlements
+=== Deploying to your VPC
 
 As an organization administrator, you can create a VPC and assign it to any business group below your main organization, however once the VPC is assigned to a business group, only the administrator of this Business group can operate the VPC (i.e. set firewall rules, assign it as default to an environment within that business group).
 
 VPCs can only be shared vertically and from the parent organization to one of its child. You cannot share a VPC created by a child business group to its parent business group.
+
+=== Firewall Rules
+
+=== 
+
 
 === VPC Connectivity Methods
 
