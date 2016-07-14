@@ -789,9 +789,9 @@ This command adds a firewall rule to the VPC defined in <vpc> using the values s
 |Value |Description |Example
 | vpc |Id of the VPC to which this load balancer is bound. | vpc-827160e6
 | cidrBlock | IP address in CIDR notation for the firewall to allow  | 192.0.1.0/27
-| protocol | The  TCP/UDP|
-| fromPort | 216-1|
-| toPort | optional|
+| protocol | The protocol to use in the rules. It can be `tcp` or `udp` | tcp
+| fromPort | The port from which the firewall will allows requests. it can go from 0 to 65535 | 8888
+| toPort | *optional* In case a port range is needed, the `fromPort` and `toPort` variables define such range | 8090
 |===
 
 [CAUTION]
