@@ -35,7 +35,7 @@ Your load balancer listens for outside requests over https, but it communicates 
 
 == Using the Load Balancer
 
-Although this feature will eventually be built into the Runtime Manager UI, currently it’s only available as a service that can be used via the link:/anypoint-platform-for-apis/anypoint-platform-cli[Anypoint Command Line Interface] or using the link:/runtime-manager/runtime-manager-api[Cloudhub API] through the endpoints `anypoint.mulesoft.com/cloudhub/api/organizations/{orgid}/loadbalancers` and `anypoint.mulesoft.com/cloudhub/api/organizations/{orgid}/vpcs`.
+Although this feature will eventually be built into the Runtime Manager UI, currently it’s only available as a service that can be used via the link:/runtime-manager/anypoint-platform-cli[Anypoint Command Line Interface] or using the link:/runtime-manager/runtime-manager-api[Cloudhub API] through the endpoints `anypoint.mulesoft.com/cloudhub/api/organizations/{orgid}/loadbalancers` and `anypoint.mulesoft.com/cloudhub/api/organizations/{orgid}/vpcs`.
 
 [NOTE]
 --
@@ -151,7 +151,7 @@ It’s highly recommended to pay attention to the rules’ order when creating t
 
 ==== Setting a Rule Priority Order
 
-You can set an order when creating the rule using the link:/anypoint-platform-for-apis/anypoint-platform-cli#cloudhub-add-lb-rule[cloudhub-add-lb-rule] command in the Anypoint-CLI by specifying an index value.
+You can set an order when creating the rule using the link:/runtime-manager/anypoint-platform-cli#cloudhub-add-lb-rule[cloudhub-add-lb-rule] command in the Anypoint-CLI by specifying an index value.
 
 When using the API, you can't specify a priority order, but you can send a `PUT` request to the endpoint `anypoint.mulesoft.com/cloudhub/api/organizations/{orgid}/loadbalancers/{loadbalancerId}` and update your rules expressions to match your needs based on the order logic explained above (longer URIs within the same subdomain are checked first).
 
@@ -231,6 +231,6 @@ DES-CBC3-SHA
 
 == See Also
 
-* Learn how to manage your deployed applications and load balancers using link:/anypoint-platform-for-apis/anypoint-platform-cli[Anypoint Platform CLI]. +
+* Learn how to manage your deployed applications and load balancers using link:/runtime-manager/anypoint-platform-cli[Anypoint Platform CLI]. +
 * Learn how to interact directly with your applications using link:/runtime-manager/runtime-manager-api[Runtime Manager API]. +
 * Check out the link:https://anypoint.mulesoft.com/apiplatform/anypoint-platform/#/portals[API Portal] of the CloudHub API to see an interactive reference of all the supported resources, methods, required properties and expected responses.
