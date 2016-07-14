@@ -50,7 +50,11 @@ You can also use an environment variable (e.g. `export ANYPOINT_ENV=<name>`)| No
 
 === Logging In
 
-As instructed above, the username and password parameters are required. If you don't pass them, Anypoint-CLI will not run. +
+As instructed above, the username and password parameters are required. However, if you choose to simply pass your username, Anypoint Platform CLI prompts for your password.
+
+If you choose to pass the credentials when running Anypoint-CLI, we strongly recommend to pass both parameters as environment variables: +
+`$ANYPOINT_USERNAME` and `$ANYPOINT_PASSWORD`.
+
 The recommended way of passing your credentials is using the `credentials` file located in the `~/.anypoint/` directory in Linux and OSx or `C:\Users\USERNAME \.anypoint\` in Windows. +
 
 [NOTE]
@@ -76,9 +80,6 @@ Set up a blank file named `credentials` with the following structure:
 ----
 
 The `default` profile is used unless the `ANYPOINT_USERNAME` environment variable is set or you pass the `--username` parameter in the Command Line.
-
-If you choose to pass the credentials when running Anypoint-CLI, we strongly recommend to pass both parameters as environment variables: +
-`$ANYPOINT_USERNAME` and `$ANYPOINT_PASSWORD`.
 
 Environment variables override credentials file parameters and Command line parameters override environment variables.
 
