@@ -105,10 +105,9 @@ Note that to leverage AWS Direct Connect you must be able to set up the direct c
 The diagram below illustrates connecting a CloudHub VPC and Amazon VPC together directly through VPC peering: +
 image:CHVPC05.png[CHVPC05]
 
-The SLA for configuring VPC is 5 business days after link:_attachments/VPC-Gateway-Questionnaire-v8.xlsm[the VPC discovery form] has been completed and returned, though it may be completed sooner.
+. *CloudHub Direct Connect:* If your network connects to your Amazon VPC using link:https://aws.amazon.com/directconnect/[Amazon Direct Connect], you can create a virtual host interface to your CloudHub VPC.
 
-. *CloudHub Direct Connect:* Pair an Amazon VPC connected to your Network through link:https://aws.amazon.com/directconnect/[Amazon Direct Connect] using CloudHub´s virtual host interface directly to your Amazon VPC.
-  
+The SLA for configuring VPC is 5 business days after link:_attachments/VPC-Gateway-Questionnaire-v8.xlsm[the VPC discovery form] has been completed and returned, though it may be completed sooner.
 
 == Frequently Asked Questions about CloudHub VPC
 
