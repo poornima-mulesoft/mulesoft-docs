@@ -1,12 +1,8 @@
 = Command Line Interface Shell for Anypoint Platform.
 :keywords: administration, api, organization, users, gateway, theme, cli
 
-// Not in TOC. Move to Runtime Manager. (kris 6.24.2016)
 
-[NOTE]
-This feature is currently in Beta and not available for all customers.
-
-Anypoint Platform provides you a command line tool to interact with your applications through both interactive shell and standard CLI modes.
+Anypoint Platform provides you a command line tool to interact with your Cloudhub applications, link:/runtime-manager/virtual-private-cloud[VPCs] and link:/runtime-manager/cloudhub-load-balancer[Cloudhub load balancers] through both interactive shell and standard CLI modes.
 
 == Assumptions
 
@@ -29,7 +25,7 @@ $ npm install -g anypoint-cli
 
 Every instance of Anypoint-CLI takes any of the following parameters:
 
-[width="100a",cols="20,70a,10a",options="header"]
+[width="100a",cols="15,75a,10a",options="header"]
 |===
 |Parameter |Description| Required
 |username | Your Anypoint Platform username. +
@@ -436,7 +432,7 @@ This command does not take any options, except for the default `--help`.
 cloudhub load-balancer create [options] <vpc> <name> <certificate> <privateKey>
 ----
 This command creates a load balancer using the specified values in the variables.
-[cols="30a,50a,20a",options="header"]
+[cols="12,53a,35a",options="header"]
 |===
 |Value |Description |Example
 | vpc |Id of the VPC to which this load balancer is bound. | vpc-827160e6
@@ -486,7 +482,7 @@ cloudhub load-balancer ssl-endpoint add [options] <name> <certificate> <privateK
 ----
 This command adds an SSL endpoint to the load balancer specified in <name>, using the certificate and private key passed.
 
-[cols="30a,50a,20a",options="header"]
+[cols="12a,53a,35a",options="header"]
 |===
 |Value |Description |Example
 | name |Name for the load balancer. | newtestloadbalancer
@@ -535,7 +531,7 @@ cloudhub load-balancer whitelist add [options] <name> <cidrBlock>
 This command adds an IP, or range of IPs addresses specified in <cidrBlock> to the whitelist of the load balancer specified in <name>.
 
 [NOTE]
-The whitelist works at the load balancer level, not at the common name (CN) certificate level. Make sure you only pass IP addresses.
+The whitelist works at the load balancer level, not at the CN certificate level. Make sure you only pass IP addresses.
 
 This command does not take any options, except for the default --help.
 
@@ -568,7 +564,7 @@ $ cloudhub load-balancer mappings add <name> <index> <inputUri> <appName> <appUr
 ----
 This command adds a proxy mapping rule to the load balancer specified in <name> at the priority index specified in <index> in the CN passed under the `certificateName` option, using the values set in the variables +
 
-[cols="18a,62a,20a",options="header"]
+[cols="12a,68a,20a",options="header"]
 |===
 |Value |Description |Example
 |name|Name of the load balancer to which this rule is applied. |testloadbalancer
