@@ -66,7 +66,7 @@ The safe rule of thumb for deciding the size of your VPC subnet is `10 times the
 
 === Deploying to your VPC
 
-As an organization administrator, you can create a VPC and share it to any business group within your main organization, however once the VPC is inherited by a business group, only the owner of said business group can operate the VPC (i.e. set firewall rules, assign it as default to an environment within that business group, etc). +
+As an organization administrator, you can create a VPC and share it with any business group within your main organization, however once the VPC is inherited by a business group, only the owner of said business group can operate the VPC (i.e. set firewall rules, assign it as default to an environment within that business group, etc). +
 The user who created the VPC is the *VPC Owner* and is the only one who can share the VPC.
 
 [NOTE]
