@@ -1,4 +1,4 @@
-= Virtual Private Cloud
+= Virtual Private Cloud
 :keywords: cloudhub, vpc, ipsec, ssl
 
 
@@ -66,9 +66,20 @@ The safe rule of thumb for deciding the size of your VPC subnet is `10 times the
 
 === Deploying to your VPC
 
-As an organization administrator, you can create a VPC and assign it to any business group below your main organization, however once the VPC is assigned to a business group, only the administrator of this Business group can operate the VPC (i.e. set firewall rules, assign it as default to an environment within that business group, etc).
+As an organization administrator, you can create a VPC and share it to any business group within your main organization, however once the VPC is inherited by a business group, only the owner of said business group can operate the VPC (i.e. set firewall rules, assign it as default to an environment within that business group, etc). +
+The user who created the VPC is the *VPC Owner* and is the only one who can share the VPC.
 
-VPCs can only be shared vertically -from the parent organization to one of its child- and only by the VPC owner -the user who created the VPC-. You cannot share a VPC created by a child business group to its parent business group.
+[NOTE]
+--
+VPCs can only be shared vertically from the main organization to one of its business groups, or from a business group to one of its link:/access-management/organization#child-business-groups[child business groups]. +
+You cannot share a VPC created by a business group with another one of higher hierarchy.
+--
+
+[WARNING]
+--
+A CloudHub organization administrator or a Business Group Owner can create or update an existing VPC (owned or inherited) to make it the default for either the region, the environments or both. + However if such association already exists, it´s overwritten by the requested VPC.
+--
+
 
 === Firewall Rules
 
