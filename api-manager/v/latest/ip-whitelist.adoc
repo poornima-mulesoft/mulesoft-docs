@@ -17,7 +17,7 @@ You can choose to whitelist a list of IP addresses by specifying them in the whi
 
 image:ip+whitelist.png[ip+whitelist]
 
-All addresses defined in the whi to access and interact with your API.
+All addresses defined in the whitelist textbox can access and interact with your API.
 
 There are three ways you can specify an address or a range or addresses:
 
